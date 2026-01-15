@@ -21,20 +21,30 @@
         app:layout_constraintVertical_bias="0.19"></TextView>
 
     <Button
+        android:id="@+id/scanButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/appSkyBlue"
         android:text="Scan Trading Card"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="271dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callToChoose"
+        app:layout_constraintVertical_bias="0.336" />
 
     <Button
+        android:id="@+id/submitImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/appSkyBlue"
         android:text="Submit photo of Trading Card"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="460dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scanButton"
+        app:layout_constraintVertical_bias="0.336"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
