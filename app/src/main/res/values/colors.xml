@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="appDeepPurple">#402E7A</color>
+    <color name="appRoyalBlue">#4C3BCF</color>
+    <color name="appSkyBlue">#4B70F5</color>
+    <color name="appBabyBlue">#3DC2EC</color>
 </resources>
