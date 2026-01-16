@@ -15,10 +15,10 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19"></TextView>
+        app:layout_constraintVertical_bias="0.103" />
 
     <Button
         android:id="@+id/scanButton"
@@ -29,10 +29,10 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/callToChoose"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <Button
         android:id="@+id/submitImageButton"
@@ -47,4 +47,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scanButton"
         app:layout_constraintVertical_bias="0.336"/>
+
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="193dp"
+        android:layout_height="75dp"
+        android:backgroundTint="@color/appBabyBlue"
+        android:text="Back"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/submitImageButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36sp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
