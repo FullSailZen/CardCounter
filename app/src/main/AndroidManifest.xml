@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- camera permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,6 +29,12 @@
             android:name=".SubmitImageActivity"
             android:exported="false">
             </activity>
+
+        <activity
+            android:name=".CameraActivity"
+            android:exported="false">
+            </activity>
+
     </application>
 
 </manifest>
