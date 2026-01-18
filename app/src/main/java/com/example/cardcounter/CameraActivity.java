@@ -16,6 +16,19 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import com.google.common.util.concurrent.ListenableFuture;
+import android.content.Intent;
+import android.media.Image;
+import android.util.Log;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.ImageProxy;
+import androidx.camera.core.ImageCapture;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.util.concurrent.ExecutionException;
 public class CameraActivity extends AppCompatActivity {
@@ -88,10 +101,81 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void takePhoto() {
+        // checking if image capture use case is bound to lifecycle (ready to use)
+        if (imageCapture == null) {
+            Toast.makeText(this, "Image capture not available.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // proof that photo capture is working before the rest of implementation
-        Toast.makeText(this, "Photo captured!", Toast.LENGTH_SHORT).show();
+        // asking camerax to capture the photo and to give us the result in memory
+        imageCapture.takePicture(
+                // running on the main thread, which handles UI/notifs (toast)
+                ContextCompat.getMainExecutor(this),
+                // custom callback that handles successful captures or errors
+                new ImageCapture.OnImageCapturedCallback() {
+                    @Override
+                    public void onCaptureSuccess(@NonNull ImageProxy imageProxy) {
+                        // proof that photo capture is working before the rest of implementation
+                        Toast.makeText(CameraActivity.this, "Photo captured!", Toast.LENGTH_SHORT).show();
+                        @SuppressWarnings("ConstantConditions")
+                        // get raw image buffer from camerax
+                        Image mediaImage = imageProxy.getImage();
 
+                        if (mediaImage != null) {
+                            // telling ML Kit how the image is rotated to ensure
+                            // quality data extraction (needs to make it upright)
+                            int rotationDegrees = imageProxy.getImageInfo().getRotationDegrees();
+
+                            // creating ML Kit compatible image and passing the correct rotation
+                            InputImage image = InputImage.fromMediaImage(mediaImage, rotationDegrees);
+
+                            // sending the correctly rotated image to the ML Kit for processing
+                            // and data extraction
+                            processImageWithMlKit(image);
+                        }
+                        // closing the image proxy after processing to avoid unexpected behavior
+                        imageProxy.close();
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull ImageCaptureException exception) {
+                        // logging the error if it occurs
+                        Log.e("CameraActivity", "Photo capture failed: " + exception.getMessage());
+                        Toast.makeText(CameraActivity.this, "Photo capture failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+    }
+
+    // this method processes the submitted image using ML Kits Text Recognition
+    private void processImageWithMlKit(InputImage image) {
+        // getting an instance of the text recognizer
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
+        // process the image and add listeners for successes and failures
+        recognizer.process(image).addOnSuccessListener(visionText -> {
+            // task completed successfully
+            String recognizedText = visionText.getText();
+            launchResultsActivity(recognizedText);
+        }).addOnFailureListener(e -> {
+            // logging task failure error
+            Log.e("CameraActivity", "Text recognition failed: " + e.getMessage());
+            Toast.makeText(CameraActivity.this, "Text recognition failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            launchResultsActivity("Failed to recognize text.");
+        });
+
+
+
+    }
+
+
+// this method will launch the results activity and pass the recognized text to it
+    private void launchResultsActivity(String recognizedText) {
+    Intent intent = new Intent(this, ResultsActivity.class);
+    // passing the text to the next activity using an Intent extra
+        intent.putExtra("RECOGNIZED_TEXT", recognizedText);
+        startActivity(intent);
     }
 
 
