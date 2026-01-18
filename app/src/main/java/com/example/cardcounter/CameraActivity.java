@@ -59,6 +59,8 @@ public class CameraActivity extends AppCompatActivity {
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
+
+                // allowing us to get the camera stream once its ready via a "Future", throws an exception if it fails
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 // setting up the preview use case to display the camera feed
@@ -71,20 +73,23 @@ public class CameraActivity extends AppCompatActivity {
                 // selecting the back camera as the default (camera is a constant, not new)
                 CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
 
-                // unbinding before we rebind to avoid errors
+                // unbinding before we rebind to avoid errors, we can only use the camera in one use case at a time
                 cameraProvider.unbindAll();
 
                 // rebinding the use cases to the camera
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
 
             } catch (ExecutionException | InterruptedException e) {
+                // throwing error if something goes wrong
                 Toast.makeText(this, "Error starting camera: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }, ContextCompat.getMainExecutor(this));
+        },      // setting the UI thread as our main executor, instead of the secondary thread that handles background processes.
+                ContextCompat.getMainExecutor(this));
     }
 
     private void takePhoto() {
 
+        // proof that photo capture is working before the rest of implementation
         Toast.makeText(this, "Photo captured!", Toast.LENGTH_SHORT).show();
 
     }
