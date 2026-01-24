@@ -9,13 +9,9 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class ResultsActivity extends AppCompatActivity {
-
-    // declaring ui elements
-    private TextView cardNameTextView;
     private TextView cardSetTextView;
     private TextView cardRollAvgTextView;
     private TextView cardEstRarityTextView;
-    private Button resultsGoBackButton;
 
 
     @Override
@@ -26,10 +22,11 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         // instantiating back button
-        resultsGoBackButton = findViewById(R.id.resultsGoBackButton);
+        Button resultsGoBackButton = findViewById(R.id.resultsGoBackButton);
 
         // this is the start of displaying the results, we will start with name for now
-        cardNameTextView = findViewById(R.id.cardName);
+        // declaring ui elements
+        TextView cardNameTextView = findViewById(R.id.cardName);
 
         // getting the recognized text from the intent
         Intent intent = getIntent();
