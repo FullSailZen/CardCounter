@@ -49,16 +49,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"/>
 
-    <TextView
-        android:id="@+id/cardEstRarity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card 90-Day Pricing Average:"
-        app:layout_constraintTop_toBottomOf="@id/cardRollAvg"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"/>
 
     <Button
         android:id="@+id/resultsGoBackButton"
