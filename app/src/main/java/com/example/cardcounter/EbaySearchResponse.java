@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EbaySearchResponse {
     @SerializedName("itemSummaries")
-    private List<ItemSummary> itemSummaries;
+    List<ItemSummary> itemSummaries;
 
     // getter for list of items
     public List<ItemSummary> getItemSummaries(){
