@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class Price {
 
     @SerializedName("value")
-    private String value;
+    String value;
 
     @SerializedName("currency")
-    private String currency;
+    String currency;
 
     // getter for value
     public String getValue(){

@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ItemSummary {
     @SerializedName("title")
-    private String title;
+    String title;
 
     @SerializedName("price")
-    private Price price;
+    Price price;
 
     @SerializedName("itemWebUrl")
     private String itemWebUrl;
